@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+:root {
+  --background: #060c17;
+  --foreground: #e6ecff;
+  --surface: #0f1728;
+  --surface-2: #0a1020;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-ibm-plex-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-space-grotesk), sans-serif;
+  background-image:
+    radial-gradient(1200px 500px at 10% -10%, rgba(45, 130, 255, 0.2), transparent),
+    radial-gradient(800px 400px at 90% -20%, rgba(35, 215, 190, 0.16), transparent),
+    linear-gradient(180deg, #040914 0%, #060c17 35%, #050a14 100%);
+}
+
+.bg-orb {
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.4;
+}
+
+.bg-orb-1 {
+  width: 22rem;
+  height: 22rem;
+  left: -6rem;
+  top: -4rem;
+  background: rgba(44, 139, 255, 0.4);
+}
+
+.bg-orb-2 {
+  width: 26rem;
+  height: 26rem;
+  right: -8rem;
+  top: 6rem;
+  background: rgba(48, 199, 171, 0.26);
+}
+
+.panel-base {
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: 0.9rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+    var(--surface-2);
+  padding: 0.9rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.1);
+  padding-bottom: 0.7rem;
+}
+
+.panel-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #b8c7ee;
+}
+
+.panel-meta {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8aa0d4;
+}
+
+.panel-scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+.panel-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+.panel-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Full-height column shell: fixed chrome + flex scroll region */
+.column-shell {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid rgba(226, 232, 240, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01)),
+    var(--surface-2);
+}
+
+.column-shell:last-child {
+  border-right: 0;
+}
+
+.column-chrome {
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.1);
+  background: rgba(6, 10, 20, 0.92);
+}
+
+.column-scroll-wrap {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Top fade so scrolled content hints there is history above */
+.column-scroll-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 40px);
+  mask-image: linear-gradient(to bottom, transparent, black 40px);
+}
+
+/* Chat markdown: base + fallbacks; most structure uses ReactMarkdown `components` */
+.chat-markdown {
+  line-height: 1.65;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.chat-markdown li input[type="checkbox"] {
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  accent-color: rgba(56, 189, 248, 0.85);
+}
+
+.chat-markdown sup,
+.chat-markdown sub {
+  font-size: 0.75em;
+}
+
+.chat-markdown del {
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: #d5ddf4;
+  font-size: 0.85rem;
+}
+
+.settings-field input,
+.settings-field textarea {
+  border: 1px solid rgba(226, 232, 240, 0.16);
+  background: rgba(10, 17, 32, 0.9);
+  border-radius: 0.55rem;
+  padding: 0.62rem 0.72rem;
+  color: #e2e8f0;
+  outline: none;
+}
+
+.settings-field input:focus,
+.settings-field textarea:focus {
+  border-color: rgba(56, 189, 248, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .panel-base {
+    min-height: 28rem;
+  }
+}
