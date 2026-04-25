@@ -1,5 +1,7 @@
 # INSIGHT-FLOW
 
+> **Note:** On the deployed website, the backend may take up to ~50 seconds on the first request. It is hosted on Render, and the service can go to sleep after inactivity (cold start behavior).
+
 Insight is a meeting copilot with:
 
 - a Next.js frontend (`ui`) for microphone capture, live transcript, suggestion cards, and chat
