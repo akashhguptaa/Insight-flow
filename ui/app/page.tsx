@@ -113,13 +113,13 @@ export default function Home() {
   const sharedDisabled = !hasApiKey;
 
   return (
-    <div className="relative flex h-dvh min-h-0 flex-col overflow-hidden">
+    <div className="relative flex h-dvh min-h-0 flex-col overflow-hidden px-2 pb-2 pt-2 md:px-3 md:pb-3">
       <div className="bg-orb bg-orb-1" />
       <div className="bg-orb bg-orb-2" />
 
-      <header className="flex h-[60px] shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-slate-950/92 px-4 backdrop-blur-md">
+      <header className="mb-2 flex min-h-[68px] shrink-0 items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#0b1324]/88 px-4 shadow-[0_18px_42px_rgba(2,8,20,0.45)] backdrop-blur-xl md:mb-3 md:min-h-[74px]">
         <div className="flex min-w-0 flex-col justify-center gap-0.5">
-          <h1 className="truncate text-base font-semibold tracking-tight text-slate-50">
+          <h1 className="truncate text-base font-semibold tracking-tight text-slate-50 md:text-lg">
             TwinMind Live Suggestions
           </h1>
           {!hasApiKey ? (
@@ -130,8 +130,8 @@ export default function Home() {
           ) : null}
         </div>
 
-        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
-          <span className="rounded border border-white/10 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-400">
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2.5">
+          <span className="rounded-full border border-slate-300/15 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-300">
             Backend: {healthStatus}
           </span>
           <button
@@ -140,14 +140,14 @@ export default function Home() {
               void handleSpinUpBackend();
             }}
             disabled={isSpinningBackend}
-            className="rounded-md border border-emerald-300/25 bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg border border-emerald-200/30 bg-emerald-400/15 px-3 py-1.5 text-sm font-semibold text-emerald-100 shadow-[0_10px_24px_rgba(16,185,129,0.16)] transition hover:-translate-y-0.5 hover:bg-emerald-400/25 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSpinningBackend ? "Spinning backend..." : "Spin Up Backend"}
           </button>
           <button
             type="button"
             onClick={() => setIsSettingsOpen(true)}
-            className="rounded-md border border-white/15 bg-white/[0.03] px-3 py-1.5 text-sm font-semibold text-slate-100 transition hover:bg-white/[0.08]"
+            className="rounded-lg border border-white/15 bg-white/[0.05] px-3 py-1.5 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
           >
             Settings
           </button>
@@ -161,7 +161,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="grid min-h-0 min-w-0 flex-1 grid-cols-3">
+      <main className="grid min-h-0 min-w-0 flex-1 grid-cols-1 gap-2.5 md:grid-cols-3 md:gap-3">
         <TranscriptPanel
           transcript={transcript}
           isRecording={mic.isRecording}
