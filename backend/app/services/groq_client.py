@@ -7,7 +7,7 @@ from fastapi import HTTPException, status
 from groq import Groq
 
 GROQ_TRANSCRIBE_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
-TRANSCRIBE_MODEL = "whisper-large-v3-turbo"
+TRANSCRIBE_MODEL = "whisper-large-v3"
 TEXT_MODEL = "openai/gpt-oss-120b"
 
 
