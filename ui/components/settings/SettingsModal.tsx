@@ -9,6 +9,8 @@ interface SettingsModalProps {
   settings: AppSettings;
   onClose: () => void;
   onSave: (next: AppSettings) => void;
+  onSpinUpBackend: () => void;
+  isSpinningBackend: boolean;
 }
 
 export function SettingsModal({
@@ -16,6 +18,8 @@ export function SettingsModal({
   settings,
   onClose,
   onSave,
+  onSpinUpBackend,
+  isSpinningBackend,
 }: SettingsModalProps) {
   const [local, setLocal] = useState<AppSettings>(settings);
 
@@ -142,7 +146,17 @@ export function SettingsModal({
           </label>
         </div>
 
-        <div className="mt-5 flex justify-end gap-2">
+        <div className="mt-5 flex items-center justify-between gap-2">
+          <button
+            type="button"
+            onClick={onSpinUpBackend}
+            disabled={isSpinningBackend}
+            className="rounded-md border border-emerald-300/25 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSpinningBackend ? "Spinning backend..." : "Spin Up Backend"}
+          </button>
+
+          <div className="flex gap-2">
           <button
             type="button"
             onClick={onClose}
@@ -160,6 +174,7 @@ export function SettingsModal({
           >
             Save settings
           </button>
+          </div>
         </div>
       </div>
     </div>

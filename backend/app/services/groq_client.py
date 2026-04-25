@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 from typing import Optional
 
 import httpx
@@ -9,15 +8,15 @@ from groq import Groq
 
 GROQ_TRANSCRIBE_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
 TRANSCRIBE_MODEL = "whisper-large-v3-turbo"
-TEXT_MODEL = "openai/gpt-oss-20b"
+TEXT_MODEL = "openai/gpt-oss-120b"
 
 
 def resolve_api_key(request_api_key: Optional[str]) -> str:
-    key = (request_api_key or "").strip() or os.getenv("GROQ_API_KEY", "").strip()
+    key = (request_api_key or "").strip()
     if not key:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Missing Groq API key. Provide api_key in request or set GROQ_API_KEY.",
+            detail="Missing Groq API key. Provide api_key in request.",
         )
     return key
 

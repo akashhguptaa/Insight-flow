@@ -34,10 +34,13 @@ export default function Home() {
   const setRecording = useSessionStore((state) => state.setRecording);
   const promptSettings = useSessionStore((state) => state.promptSettings);
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(
+    () => !settings.api_key.trim(),
+  );
   const [healthStatus, setHealthStatus] = useState<
     "idle" | "ok" | "error" | "checking"
   >("idle");
+  const [isSpinningBackend, setIsSpinningBackend] = useState(false);
 
   const mic = useMic({
     apiKey: settings.api_key,
@@ -84,6 +87,20 @@ export default function Home() {
     };
   }, []);
 
+  const handleSpinUpBackend = async () => {
+    setIsSpinningBackend(true);
+    setHealthStatus("checking");
+
+    try {
+      await healthCheck();
+      setHealthStatus("ok");
+    } catch {
+      setHealthStatus("error");
+    } finally {
+      setIsSpinningBackend(false);
+    }
+  };
+
   const handleManualRefresh = async () => {
     await suggestions.refresh();
   };
@@ -119,6 +136,16 @@ export default function Home() {
           </span>
           <button
             type="button"
+            onClick={() => {
+              void handleSpinUpBackend();
+            }}
+            disabled={isSpinningBackend}
+            className="rounded-md border border-emerald-300/25 bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSpinningBackend ? "Spinning backend..." : "Spin Up Backend"}
+          </button>
+          <button
+            type="button"
             onClick={() => setIsSettingsOpen(true)}
             className="rounded-md border border-white/15 bg-white/[0.03] px-3 py-1.5 text-sm font-semibold text-slate-100 transition hover:bg-white/[0.08]"
           >
@@ -142,6 +169,11 @@ export default function Home() {
           error={mic.error}
           debugInfo={showTranscriptDebug ? mic.debugInfo : undefined}
           onToggleMic={() => {
+            if (!hasApiKey) {
+              setIsSettingsOpen(true);
+              return;
+            }
+
             if (mic.isRecording) {
               mic.stopMic();
               return;
@@ -184,6 +216,10 @@ export default function Home() {
         settings={settings}
         onClose={() => setIsSettingsOpen(false)}
         onSave={(next: AppSettings) => updateSettings(next)}
+        onSpinUpBackend={() => {
+          void handleSpinUpBackend();
+        }}
+        isSpinningBackend={isSpinningBackend}
       />
     </div>
   );
