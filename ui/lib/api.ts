@@ -25,6 +25,35 @@ export async function healthCheck(): Promise<{ status: string; service: string }
   return (await response.json()) as { status: string; service: string };
 }
 
+/**
+ * Asks the backend to verify the key with Groq (GET /v1/models).
+ * No-op for empty/whitespace-only keys (caller may skip or handle separately).
+ */
+export async function validateGroqApiKey(apiKey: string): Promise<void> {
+  const key = apiKey.trim();
+  if (!key) {
+    return;
+  }
+  if (key.length < 10) {
+    throw new Error("API key is too short.");
+  }
+
+  const response = await fetch(`${API_URL}/api/validate_key`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ api_key: key }),
+  });
+  if (response.status === 401) {
+    throw new Error("Wrong API key");
+  }
+  if (response.status === 403) {
+    throw new Error("Wrong API key or access denied");
+  }
+  if (!response.ok) {
+    throw await parseError(response);
+  }
+}
+
 export async function transcribeChunk(input: {
   apiKey: string;
   audioBlob: Blob;

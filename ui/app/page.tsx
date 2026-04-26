@@ -131,8 +131,14 @@ export default function Home() {
         </div>
 
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-2.5">
-          <span className="rounded-full border border-slate-300/15 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-300">
-            Backend: {healthStatus}
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300/15 bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-300">
+            {healthStatus === "checking" || isSpinningBackend ? (
+              <span
+                className="inline-block h-2.5 w-2.5 shrink-0 animate-spin rounded-full border-2 border-slate-300/80 border-t-transparent"
+                aria-hidden
+              />
+            ) : null}
+            <span>Backend: {healthStatus}</span>
           </span>
           <button
             type="button"
@@ -140,9 +146,20 @@ export default function Home() {
               void handleSpinUpBackend();
             }}
             disabled={isSpinningBackend}
-            className="rounded-lg border border-emerald-200/30 bg-emerald-400/15 px-3 py-1.5 text-sm font-semibold text-emerald-100 shadow-[0_10px_24px_rgba(16,185,129,0.16)] transition hover:-translate-y-0.5 hover:bg-emerald-400/25 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-lg border border-emerald-200/30 bg-emerald-400/15 px-3 py-1.5 text-sm font-semibold text-emerald-100 shadow-[0_10px_24px_rgba(16,185,129,0.16)] transition hover:-translate-y-0.5 hover:bg-emerald-400/25 disabled:cursor-not-allowed disabled:opacity-60"
+            aria-busy={isSpinningBackend}
           >
-            {isSpinningBackend ? "Spinning backend..." : "Spin Up Backend"}
+            {isSpinningBackend ? (
+              <>
+                <span
+                  className="inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-emerald-200/80 border-t-transparent"
+                  aria-hidden
+                />
+                <span>Starting…</span>
+              </>
+            ) : (
+              "Spin Up Backend"
+            )}
           </button>
           <button
             type="button"
@@ -220,6 +237,7 @@ export default function Home() {
           void handleSpinUpBackend();
         }}
         isSpinningBackend={isSpinningBackend}
+        healthStatus={healthStatus}
       />
     </div>
   );

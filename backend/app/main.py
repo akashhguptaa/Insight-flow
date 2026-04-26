@@ -11,6 +11,7 @@ from app.models.schemas import HealthResponse
 from app.routers.chat import router as chat_router
 from app.routers.suggestions import router as suggestions_router
 from app.routers.transcribe import router as transcribe_router
+from app.routers.validate_key import router as validate_key_router
 
 
 load_dotenv()
@@ -48,6 +49,7 @@ def health() -> HealthResponse:
 app.include_router(transcribe_router, prefix="/api")
 app.include_router(suggestions_router, prefix="/api")
 app.include_router(chat_router, prefix="/api")
+app.include_router(validate_key_router, prefix="/api")
 
 if __name__=="__main__":
     import uvicorn
