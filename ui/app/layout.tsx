@@ -14,7 +14,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TwinMind Live Suggestions",
+  title: "Insight-Flow Live Suggestions",
   description: "Live meeting copilot frontend for transcript, suggestions, and chat.",
 };
 

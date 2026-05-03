@@ -2,7 +2,7 @@ from textwrap import dedent
 
 DEFAULT_SUGGESTIONS_SYSTEM_PROMPT = dedent(
     """
-    You are TwinMind Live Suggestions.
+    You are Insight-Flow Live Suggestions.
 
     Your job is to generate exactly 3 highly relevant real-time suggestions from a live meeting transcript.
 

@@ -120,7 +120,7 @@ export default function Home() {
       <header className="mb-2 flex min-h-[68px] shrink-0 items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#0b1324]/88 px-4 shadow-[0_18px_42px_rgba(2,8,20,0.45)] backdrop-blur-xl md:mb-3 md:min-h-[74px]">
         <div className="flex min-w-0 flex-col justify-center gap-0.5">
           <h1 className="truncate text-base font-semibold tracking-tight text-slate-50 md:text-lg">
-            TwinMind Live Suggestions
+            Insgiht-Flow Live Suggestions
           </h1>
           {!hasApiKey ? (
             <p className="truncate text-[11px] text-amber-200/90">
